@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Campus | Student Smart Dashboard</title>
+
+  <!-- Google Fonts for Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- App Container (Sidebar + Main Content Area) -->
+  <div class="app-layout">
+
+    <!-- ==============================================
+         1. SIDEBAR NAVIGATION
+         ============================================== -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-header">
+        <div class="logo-box">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="logo-text">
+          <h2>Campus<span>Sphere</span></h2>
+          <p>College OS v2.0</p>
+        </div>
+        <button class="mobile-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <div class="nav-group-title">MAIN MENU</div>
+        <ul class="nav-links">
+          <li>
+            <a href="#overview" class="nav-item active" data-section="overview">
+              <i class="fa-solid fa-shapes"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#timetable" class="nav-item" data-section="timetable">
+              <i class="fa-regular fa-calendar-days"></i>
+              <span>Time-Table</span>
+            </a>
+          </li>
+          <li>
+            <a href="#attendance" class="nav-item" data-section="attendance">
+              <i class="fa-solid fa-user-check"></i>
+              <span>Attendance</span>
+              <span class="badge" id="sidebarAttendanceBadge">86%</span>
+            </a>
+          </li>
+          <li>
+            <a href="#exam-countdown" class="nav-item" data-section="exam-countdown">
+              <i class="fa-solid fa-stopwatch"></i>
+              <span>Exam Countdown</span>
+            </a>
+          </li>
+          <li>
+            <a href="#ai-planner" class="nav-item" data-section="ai-planner">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>AI Study Planner</span>
+              <span class="badge badge-accent">AI</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="nav-group-title">ACADEMICS & TASKS</div>
+        <ul class="nav-links">
+          <li>
+            <a href="#assignments" class="nav-item" data-section="assignments">
+              <i class="fa-solid fa-list-check"></i>
+              <span>Assignments</span>
+              <span class="badge" id="pendingAssignmentsCount">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#class-notes" class="nav-item" data-section="class-notes">
+              <i class="fa-regular fa-file-lines"></i>
+              <span>Class Notes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#reference-books" class="nav-item" data-section="reference-books">
+              <i class="fa-solid fa-book-bookmark"></i>
+              <span>Reference Books</span>
+            </a>
+          </li>
+          <li>
+            <a href="#exam-results" class="nav-item" data-section="exam-results">
+              <i class="fa-solid fa-chart-line"></i>
+              <span>Exam Results</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="nav-group-title">CAMPUS LIFE & SUPPORT</div>
+        <ul class="nav-links">
+          <li>
+            <a href="#events" class="nav-item" data-section="events">
+              <i class="fa-regular fa-calendar-star fa-star"></i>
+              <span>Event Details</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sports" class="nav-item" data-section="sports">
+              <i class="fa-solid fa-volleyball"></i>
+              <span>Sports Activities</span>
+            </a>
+          </li>
+          <li>
+            <a href="#queries" class="nav-item" data-section="queries">
+              <i class="fa-regular fa-circle-question"></i>
+              <span>Queries & Helpdesk</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar User Profile Card -->
+      <div class="sidebar-user">
+        <div class="user-avatar">
+          <i class="fa-solid fa-user-graduate"></i>
+          <span class="online-indicator"></span>
+        </div>
+        <div class="user-info">
+          <h4>Vrunda Patel</h4>
+          <p>CS & AI • Sem IV</p>
+        </div>
+        <button class="logout-icon-btn" title="Campus Active" aria-label="Student Status">
+          <i class="fa-solid fa-shield-halved"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Sidebar Backdrop for Mobile Screens -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ==============================================
+         2. MAIN CONTENT WRAPPER
+         ============================================== -->
+    <div class="main-wrapper">
+
+      <!-- Top Header / App Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="menu-toggle-btn" id="mobileMenuToggle" aria-label="Open sidebar menu">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+
+          <div class="greeting-box">
+            <h1 id="greetingMessage">Welcome back, Vrunda! 👋</h1>
+            <p id="liveDateTime"><i class="fa-regular fa-clock"></i> Loading live time...</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Global Search Box -->
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="globalSearchInput" placeholder="Search notes, subjects, events...">
+          </div>
+
+          <!-- Quick Action: Dark / Light Mode Toggle -->
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon theme-icon" id="themeIcon"></i>
+            <span class="theme-btn-label">Dark Mode</span>
+          </button>
+
+          <!-- Notification Bell -->
+          <div class="notification-wrapper">
+            <button class="icon-round-btn" id="notifBellBtn" title="Campus Notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="notif-dot"></span>
+            </button>
+            <div class="notif-dropdown" id="notifDropdown">
+              <div class="notif-header">
+                <h5>Campus Notifications</h5>
+                <button class="clear-notif-btn" id="clearNotifBtn">Clear</button>
+              </div>
+              <ul class="notif-list" id="notifList">
+                <li class="notif-item unread">
+                  <div class="notif-icon bg-blue"><i class="fa-solid fa-laptop-code"></i></div>
+                  <div class="notif-content">
+                    <p><strong>Hackathon 2026</strong> registration closes in 2 days!</p>
+                    <span>25 mins ago</span>
+                  </div>
+                </li>
+                <li class="notif-item">
+                  <div class="notif-icon bg-green"><i class="fa-solid fa-chart-simple"></i></div>
+                  <div class="notif-content">
+                    <p>Mid-Semester results for AI & Robotics released.</p>
+                    <span>3 hours ago</span>
+                  </div>
+                </li>
+                <li class="notif-item">
+                  <div class="notif-icon bg-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                  <div class="notif-content">
+                    <p>Web Tech assignment deadline tomorrow 11:59 PM.</p>
+                    <span>Yesterday</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Sections -->
+      <main class="content-container">
+
+        <!-- ==========================================
+             SECTION 1: DASHBOARD OVERVIEW
+             ========================================== -->
+        <section id="overview" class="page-section active-section">
+
+          <!-- Banner Hero Card -->
+          <div class="hero-banner">
+            <div class="hero-content">
+              <span class="badge-tag">Academic Year 2026</span>
+              <h2>Campus life simplified, organized & energized.</h2>
+              <p>You have <strong>2 lectures today</strong> and <strong>1 pending assignment</strong> due this week.
+                Keep up the high attendance momentum!</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" onclick="navigateTo('ai-planner')">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Open AI Planner
+                </button>
+                <button class="btn btn-glass" onclick="navigateTo('attendance')">
+                  <i class="fa-solid fa-clipboard-user"></i> Track Attendance
+                </button>
+              </div>
+            </div>
+            <div class="hero-graphic">
+              <div class="floating-badge pulse">
+                <i class="fa-solid fa-fire"></i> 14 Day Study Streak!
+              </div>
+              <i class="fa-solid fa-graduation-cap hero-illustration-icon"></i>
+            </div>
+          </div>
+
+          <!-- Quick Stats Cards Row -->
+          <div class="stats-grid">
+            <!-- Card 1: Attendance -->
+            <div class="stat-card" onclick="navigateTo('attendance')">
+              <div class="stat-icon-wrap icon-purple">
+                <i class="fa-solid fa-user-check"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Overall Attendance</span>
+                <h3 class="stat-value" id="quickStatAttendance">86.4%</h3>
+                <span class="stat-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +2.1% this week</span>
+              </div>
+            </div>
+
+            <!-- Card 2: Upcoming Exam -->
+            <div class="stat-card" onclick="navigateTo('exam-countdown')">
+              <div class="stat-icon-wrap icon-blue">
+                <i class="fa-solid fa-stopwatch"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Next Final Exam</span>
+                <h3 class="stat-value" id="quickStatExamDays">14 Days</h3>
+                <span class="stat-subtitle" id="quickStatExamName">Distributed Systems</span>
+              </div>
+            </div>
+
+            <!-- Card 3: Pending Assignments -->
+            <div class="stat-card" onclick="navigateTo('assignments')">
+              <div class="stat-icon-wrap icon-amber">
+                <i class="fa-solid fa-list-check"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Pending Tasks</span>
+                <h3 class="stat-value" id="quickStatPendingTasks">3 Tasks</h3>
+                <span class="stat-trend alert"><i class="fa-regular fa-clock"></i> 1 due tomorrow</span>
+              </div>
+            </div>
+
+            <!-- Card 4: Current CGPA -->
+            <div class="stat-card" onclick="navigateTo('exam-results')">
+              <div class="stat-icon-wrap icon-green">
+                <i class="fa-solid fa-medal"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Cumulative GPA</span>
+                <h3 class="stat-value" id="quickStatCgpa">9.14</h3>
+                <span class="stat-trend positive"><i class="fa-solid fa-check"></i> Rank #3 in Batch</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Two-Column Grid -->
+          <div class="dashboard-columns">
+
+            <!-- Left Column: Today's Timetable + Sticky Quick Notes -->
+            <div class="dash-col">
+
+              <!-- Today's Schedule Card -->
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title-group">
+                    <i class="fa-solid fa-clock-rotate-left card-icon"></i>
+                    <div>
+                      <h3>Today's Classes</h3>
+                      <p id="dashTodayDayName">Thursday Schedule</p>
+                    </div>
+                  </div>
+                  <button class="btn-link" onclick="navigateTo('timetable')">View Full <i
+                      class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div class="card-body">
+                  <div class="schedule-timeline" id="dashSchedulePreview">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Sticky Notes Widget (Persisted in LocalStorage) -->
+              <div class="card sticky-card">
+                <div class="card-header">
+                  <div class="card-title-group">
+                    <i class="fa-solid fa-note-sticky card-icon icon-amber"></i>
+                    <div>
+                      <h3>Quick Sticky Notes</h3>
+                      <p>Instant scratchpad (Auto-saved to LocalStorage)</p>
+                    </div>
+                  </div>
+                  <span class="save-status-pill" id="quickNoteStatus">Saved <i class="fa-solid fa-check"></i></span>
+                </div>
+                <div class="card-body">
+                  <textarea id="quickNotesTextarea" class="quick-notes-input"
+                    placeholder="Jot down quick thoughts, lab locker codes, project group links, or questions for professors..."></textarea>
+                  <div class="quick-notes-actions">
+                    <button class="btn btn-sm btn-outline" id="clearQuickNotesBtn">
+                      <i class="fa-solid fa-eraser"></i> Clear Note
+                    </button>
+                    <button class="btn btn-sm btn-primary" id="saveQuickNotesBtn">
+                      <i class="fa-solid fa-floppy-disk"></i> Save Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Live Exam Countdown Widget + Event Highlight + AI Study Tip -->
+            <div class="dash-col">
+
+              <!-- Mini Exam Countdown Banner -->
+              <div class="card exam-highlight-card">
+                <div class="card-header">
+                  <div class="card-title-group">
+                    <i class="fa-solid fa-hourglass-half card-icon"></i>
+                    <div>
+                      <h3 id="dashExamTitle">Spring Finals 2026</h3>
+                      <p>Time remaining to ace the papers</p>
+                    </div>
+                  </div>
+                  <button class="btn-link" onclick="navigateTo('exam-countdown')">Set Date <i
+                      class="fa-solid fa-sliders"></i></button>
+                </div>
+                <div class="card-body">
+                  <div class="dash-countdown-clock">
+                    <div class="timer-box">
+                      <span class="timer-num" id="dashDays">00</span>
+                      <span class="timer-txt">Days</span>
+                    </div>
+                    <div class="timer-sep">:</div>
+                    <div class="timer-box">
+                      <span class="timer-num" id="dashHours">00</span>
+                      <span class="timer-txt">Hours</span>
+                    </div>
+                    <div class="timer-sep">:</div>
+                    <div class="timer-box">
+                      <span class="timer-num" id="dashMins">00</span>
+                      <span class="timer-txt">Mins</span>
+                    </div>
+                    <div class="timer-sep">:</div>
+                    <div class="timer-box">
+                      <span class="timer-num" id="dashSecs">00</span>
+                      <span class="timer-txt">Secs</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Daily Study Advice -->
+              <div class="card ai-tip-card">
+                <div class="ai-tip-header">
+                  <div class="sparkle-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Study Insight
+                  </div>
+                  <button class="refresh-tip-btn" id="refreshAiTipBtn" title="Get new study tip">
+                    <i class="fa-solid fa-rotate"></i>
+                  </button>
+                </div>
+                <p class="ai-tip-text" id="aiDailyTipText">
+                  "Use the Feynman Technique: Try explaining your Discrete Mathematics (DM) and Computer Programming
+                  (CP) concepts out loud as if teaching a beginner. It exposes hidden knowledge gaps immediately!"
+                </p>
+                <div class="ai-tip-footer">
+                  <button class="btn btn-sm btn-accent" onclick="navigateTo('ai-planner')">
+                    Create Custom Study Plan <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Upcoming Campus Event Teaser -->
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title-group">
+                    <i class="fa-solid fa-calendar-star fa-star card-icon"></i>
+                    <div>
+                      <h3>Upcoming Campus Events</h3>
+                      <p>Don't miss out on campus life</p>
+                    </div>
+                  </div>
+                  <button class="btn-link" onclick="navigateTo('events')">All Events <i
+                      class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div class="card-body">
+                  <div class="event-mini-list" id="dashEventMiniList">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 2: TIME-TABLE
+             ========================================== -->
+        <section id="timetable" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Weekly Class Time-Table</h2>
+              <p>Keep track of your lectures, lab sessions, and classroom venues.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddClassModalBtn">
+              <i class="fa-solid fa-plus"></i> Add Class Slot
+            </button>
+          </div>
+
+          <!-- Day Switcher Pills -->
+          <div class="day-tabs-container">
+            <button class="day-tab active" data-day="Monday">Monday</button>
+            <button class="day-tab" data-day="Tuesday">Tuesday</button>
+            <button class="day-tab" data-day="Wednesday">Wednesday</button>
+            <button class="day-tab" data-day="Thursday">Thursday</button>
+            <button class="day-tab" data-day="Friday">Friday</button>
+            <button class="day-tab" data-day="Saturday">Saturday</button>
+          </div>
+
+          <!-- Current Day Slots List -->
+          <div class="timetable-grid" id="timetableSlotsContainer">
+            <!-- Dynamically populated from JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 3: ATTENDANCE TRACKER
+             ========================================== -->
+        <section id="attendance" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Attendance Tracker</h2>
+              <p>Monitor your subject attendance, calculate bunk safety, and stay above the 75% bar.</p>
+            </div>
+            <button class="btn btn-outline" id="addNewSubjectBtn">
+              <i class="fa-solid fa-plus"></i> Add New Subject
+            </button>
+          </div>
+
+          <!-- Attendance Highlight Card -->
+          <div class="attendance-summary-card">
+            <div class="summary-left">
+              <div class="radial-progress-box">
+                <svg viewBox="0 0 100 100" class="circular-chart">
+                  <path class="circle-bg"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="circle" id="overallAttendanceCircle" stroke-dasharray="86, 100"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <text x="18" y="20.35" class="percentage" id="overallAttendancePercentage">86%</text>
+                </svg>
+              </div>
+              <div class="summary-text">
+                <h3>Overall Attendance Health</h3>
+                <p id="attendanceSummaryAdvice">Great job! You are well above the mandatory 75% college minimum.</p>
+                <div class="status-pills">
+                  <span class="status-pill safe"><i class="fa-solid fa-circle-check"></i> Safe Zone (>75%)</span>
+                  <span class="status-pill target"><i class="fa-solid fa-bullseye"></i> Goal: 85% Target</span>
+                </div>
+              </div>
+            </div>
+            <div class="summary-right">
+              <div class="quick-metric">
+                <span class="metric-num" id="totalClassesAttendedNum">128</span>
+                <span class="metric-label">Attended</span>
+              </div>
+              <div class="metric-divider"></div>
+              <div class="quick-metric">
+                <span class="metric-num" id="totalClassesConductedNum">148</span>
+                <span class="metric-label">Total Conducted</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject Cards Grid -->
+          <div class="subjects-attendance-grid" id="subjectsAttendanceContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 4: EXAM COUNTDOWN
+             ========================================== -->
+        <section id="exam-countdown" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Exam Countdown Timer</h2>
+              <p>Stay focused and plan your revision days before final semester exams arrive.</p>
+            </div>
+          </div>
+
+          <!-- Live Big Countdown Card -->
+          <div class="big-countdown-card">
+            <div class="exam-target-info">
+              <span class="badge-tag">TARGET MILESTONE</span>
+              <h1 id="mainExamTitle">End-Semester University Examinations</h1>
+              <p id="mainExamDateFormatted">Target Date: October 20, 2026 • Morning Shift</p>
+            </div>
+
+            <!-- Big Live Timer Blocks -->
+            <div class="big-timer-display">
+              <div class="big-time-block">
+                <div class="time-digit" id="bigDays">00</div>
+                <div class="time-label">DAYS</div>
+              </div>
+              <div class="time-colon">:</div>
+              <div class="big-time-block">
+                <div class="time-digit" id="bigHours">00</div>
+                <div class="time-label">HOURS</div>
+              </div>
+              <div class="time-colon">:</div>
+              <div class="big-time-block">
+                <div class="time-digit" id="bigMins">00</div>
+                <div class="time-label">MINUTES</div>
+              </div>
+              <div class="time-colon">:</div>
+              <div class="big-time-block">
+                <div class="time-digit highlight-sec" id="bigSecs">00</div>
+                <div class="time-label">SECONDS</div>
+              </div>
+            </div>
+
+            <!-- Custom Exam Setter Form -->
+            <div class="set-exam-form">
+              <h4>Customize Exam Countdown</h4>
+              <div class="form-row">
+                <input type="text" id="customExamNameInput" placeholder="Exam Name (e.g. Midterms, Finals)"
+                  class="input-field">
+                <input type="date" id="customExamDateInput" class="input-field">
+                <button class="btn btn-primary" id="saveCustomExamBtn">
+                  <i class="fa-solid fa-clock"></i> Set New Countdown
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exam Schedule Sheet -->
+          <div class="card mt-4">
+            <div class="card-header">
+              <div class="card-title-group">
+                <i class="fa-solid fa-file-lines card-icon"></i>
+                <div>
+                  <h3>Upcoming Exam Date Sheet</h3>
+                  <p>Semester IV Theory & Practical Examinations</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Subject Code</th>
+                      <th>Course Title</th>
+                      <th>Date & Time</th>
+                      <th>Room / Hall</th>
+                      <th>Syllabus Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="examSheetTbody">
+                    <tr>
+                      <td><span class="code-badge">DM</span></td>
+                      <td><strong>Discrete Mathematics</strong></td>
+                      <td>Oct 20, 2026 • 10:00 AM</td>
+                      <td>Auditorium Block A</td>
+                      <td><span class="badge badge-accent">100% Prepared</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">DC</span></td>
+                      <td><strong>Data Communication</strong></td>
+                      <td>Oct 22, 2026 • 10:00 AM</td>
+                      <td>Hall 302</td>
+                      <td><span class="badge badge-accent">90% Prepared</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">CP</span></td>
+                      <td><strong>Computer Programming</strong></td>
+                      <td>Oct 24, 2026 • 02:00 PM</td>
+                      <td>Lab 4B</td>
+                      <td><span class="badge">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">EEP</span></td>
+                      <td><strong>Electrical & Electronics Principles</strong></td>
+                      <td>Oct 27, 2026 • 10:00 AM</td>
+                      <td>Hall 105</td>
+                      <td><span class="badge">Revision Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">FE</span></td>
+                      <td><strong>Fundamentals of Economics</strong></td>
+                      <td>Oct 29, 2026 • 10:00 AM</td>
+                      <td>Hall 201</td>
+                      <td><span class="badge badge-accent">95% Prepared</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">ESS</span></td>
+                      <td><strong>Environmental Studies & Sustainability</strong></td>
+                      <td>Oct 31, 2026 • 02:00 PM</td>
+                      <td>Hall 204</td>
+                      <td><span class="badge">In Progress</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">IKS</span></td>
+                      <td><strong>Indian Knowledge Systems</strong></td>
+                      <td>Nov 03, 2026 • 10:00 AM</td>
+                      <td>Hall 102</td>
+                      <td><span class="badge badge-accent">100% Prepared</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">PC</span></td>
+                      <td><strong>Professional Communication</strong></td>
+                      <td>Nov 05, 2026 • 10:00 AM</td>
+                      <td>Comm Lab</td>
+                      <td><span class="badge badge-accent">100% Prepared</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 5: AI STUDY PLANNER
+             ========================================== -->
+        <section id="ai-planner" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>AI Study Planner ✨</h2>
+              <p>Generate smart, personalized revision schedules with active recall intervals.</p>
+            </div>
+          </div>
+
+          <div class="planner-layout">
+            <!-- Planner Configuration Form -->
+            <div class="card planner-input-card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <i class="fa-solid fa-robot card-icon icon-purple"></i>
+                  <div>
+                    <h3>AI Study Plan Generator</h3>
+                    <p>Enter your subject and constraints</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form id="aiPlannerForm">
+                  <div class="form-group">
+                    <label for="aiSubjectSelect">Target Subject</label>
+                    <select id="aiSubjectSelect" class="input-field" required>
+                      <option value="DM (Discrete Mathematics)">DM - Discrete Mathematics</option>
+                      <option value="DC (Data Communication)">DC - Data Communication</option>
+                      <option value="ESS (Environmental Studies)">ESS - Environmental Studies & Sustainability</option>
+                      <option value="IKS (Indian Knowledge Systems)">IKS - Indian Knowledge Systems</option>
+                      <option value="PC (Professional Communication)">PC - Professional Communication</option>
+                      <option value="FE (Fundamentals of Economics)">FE - Fundamentals of Economics</option>
+                      <option value="EEP (Electrical & Electronics)">EEP - Electrical & Electronics Principles</option>
+                      <option value="CP (Computer Programming)" selected>CP - Computer Programming</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="aiDaysInput">Days Available for Preparation</label>
+                    <input type="number" id="aiDaysInput" class="input-field" min="1" max="60" value="5" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="aiHoursInput">Daily Study Hours</label>
+                    <input type="number" id="aiHoursInput" class="input-field" min="1" max="14" value="4" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="aiDifficultySelect">Subject Difficulty Level</label>
+                    <select id="aiDifficultySelect" class="input-field">
+                      <option value="Moderate">Moderate (Balanced Breakdown)</option>
+                      <option value="Challenging">Challenging (More deep focus sessions)</option>
+                      <option value="Revision Only">Revision Only (Rapid Quizzing & Mocks)</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block" id="generatePlanBtn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Smart Study Plan
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Planner Output Display -->
+            <div class="card planner-output-card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <i class="fa-solid fa-list-check card-icon icon-green"></i>
+                  <div>
+                    <h3 id="currentPlanTitle">Active AI Study Roadmap</h3>
+                    <p id="currentPlanSubtitle">Ready to learn efficiently</p>
+                  </div>
+                </div>
+                <button class="btn btn-sm btn-outline" id="clearAiPlanBtn">
+                  <i class="fa-solid fa-trash-can"></i> Reset Plan
+                </button>
+              </div>
+              <div class="card-body">
+                <div id="aiPlanTimeline" class="ai-timeline-list">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 6: ASSIGNMENTS LIST
+             ========================================== -->
+        <section id="assignments" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Assignments & Project Tasks</h2>
+              <p>Never miss a submission deadline. Track, prioritize and complete your coursework.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddAssignmentModalBtn">
+              <i class="fa-solid fa-plus"></i> New Assignment
+            </button>
+          </div>
+
+          <!-- Assignment Filter Bar -->
+          <div class="filter-bar">
+            <div class="filter-tabs">
+              <button class="filter-pill active" data-filter="all">All (<span id="allCount">0</span>)</button>
+              <button class="filter-pill" data-filter="pending">Pending (<span id="pendingCount">0</span>)</button>
+              <button class="filter-pill" data-filter="completed">Completed (<span
+                  id="completedCount">0</span>)</button>
+            </div>
+            <div class="sort-box">
+              <label for="assignmentSortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort by:</label>
+              <select id="assignmentSortSelect" class="select-sm">
+                <option value="dueDate">Due Date (Earliest)</option>
+                <option value="priority">Priority (High to Low)</option>
+                <option value="subject">Subject</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Assignments List Container -->
+          <div class="assignments-grid" id="assignmentsContainer">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 7: CLASS NOTES
+             ========================================== -->
+        <section id="class-notes" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Class Notes & Summaries</h2>
+              <p>Organize chapter lecture notes, key formulas, and downloadable cheat sheets.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddNoteModalBtn">
+              <i class="fa-solid fa-plus"></i> Create Note
+            </button>
+          </div>
+
+          <!-- Notes Filter Bar -->
+          <div class="filter-bar">
+            <div class="search-input-group">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="notesSearchInput" placeholder="Filter notes by title or keywords...">
+            </div>
+            <select id="notesSubjectFilter" class="select-sm">
+              <option value="all">All Subjects</option>
+              <option value="DM">DM (Discrete Mathematics)</option>
+              <option value="DC">DC (Data Communication)</option>
+              <option value="ESS">ESS (Environmental Studies)</option>
+              <option value="IKS">IKS (Indian Knowledge Systems)</option>
+              <option value="PC">PC (Professional Communication)</option>
+              <option value="FE">FE (Fundamentals of Economics)</option>
+              <option value="EEP">EEP (Electrical & Electronics)</option>
+              <option value="CP">CP (Computer Programming)</option>
+            </select>
+          </div>
+
+          <!-- Notes Card Grid -->
+          <div class="notes-grid" id="notesContainer">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 8: REFERENCE BOOKS
+             ========================================== -->
+        <section id="reference-books" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Recommended Reference Books</h2>
+              <p>Official faculty textbook recommendations and digital campus library catalog.</p>
+            </div>
+            <button class="btn btn-outline" id="suggestBookBtn">
+              <i class="fa-solid fa-plus"></i> Add to My Reading List
+            </button>
+          </div>
+
+          <div class="books-grid" id="booksContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 9: EXAM RESULTS & GPA
+             ========================================== -->
+        <section id="exam-results" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Academic Results & CGPA Tracker</h2>
+              <p>Semester-by-semester grade breakdown and GPA calculator.</p>
+            </div>
+          </div>
+
+          <!-- CGPA Analytics Cards -->
+          <div class="results-stats-row">
+            <div class="result-metric-card">
+              <span class="res-title">Overall Cumulative GPA</span>
+              <h2 class="res-value" id="resOverallCgpa">9.14 / 10.0</h2>
+              <span class="res-tag">First Class with Distinction 🌟</span>
+            </div>
+            <div class="result-metric-card">
+              <span class="res-title">Credits Completed</span>
+              <h2 class="res-value">72 / 160</h2>
+              <span class="res-tag">45% Coursework Complete</span>
+            </div>
+            <div class="result-metric-card">
+              <span class="res-title">Latest Semester SGPA</span>
+              <h2 class="res-value">9.30</h2>
+              <span class="res-tag positive">+0.22 vs Prev Semester</span>
+            </div>
+          </div>
+
+          <!-- Grade Sheets Table -->
+          <div class="card mt-4">
+            <div class="card-header">
+              <div class="card-title-group">
+                <i class="fa-solid fa-award card-icon"></i>
+                <div>
+                  <h3>Semester III Official Marksheet</h3>
+                  <p>Computer Science & Artificial Intelligence Department</p>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-outline" id="printMarksheetBtn">
+                <i class="fa-solid fa-print"></i> Print Grade Card
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Course Code</th>
+                      <th>Course Name</th>
+                      <th>Credits</th>
+                      <th>Internal (40)</th>
+                      <th>External (60)</th>
+                      <th>Total (100)</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="code-badge">DM</span></td>
+                      <td>Discrete Mathematics</td>
+                      <td>4</td>
+                      <td>38</td>
+                      <td>55</td>
+                      <td>93</td>
+                      <td><span class="grade-badge grade-O">O (Outstanding)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">DC</span></td>
+                      <td>Data Communication</td>
+                      <td>4</td>
+                      <td>36</td>
+                      <td>52</td>
+                      <td>88</td>
+                      <td><span class="grade-badge grade-Ap">A+ (Excellent)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">CP</span></td>
+                      <td>Computer Programming</td>
+                      <td>4</td>
+                      <td>39</td>
+                      <td>56</td>
+                      <td>95</td>
+                      <td><span class="grade-badge grade-O">O (Outstanding)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">EEP</span></td>
+                      <td>Electrical & Electronics Principles</td>
+                      <td>3</td>
+                      <td>35</td>
+                      <td>50</td>
+                      <td>85</td>
+                      <td><span class="grade-badge grade-Ap">A+ (Excellent)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">FE</span></td>
+                      <td>Fundamentals of Economics</td>
+                      <td>3</td>
+                      <td>37</td>
+                      <td>54</td>
+                      <td>91</td>
+                      <td><span class="grade-badge grade-O">O (Outstanding)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">ESS</span></td>
+                      <td>Environmental Studies & Sustainability</td>
+                      <td>3</td>
+                      <td>36</td>
+                      <td>51</td>
+                      <td>87</td>
+                      <td><span class="grade-badge grade-Ap">A+ (Excellent)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">IKS</span></td>
+                      <td>Indian Knowledge Systems</td>
+                      <td>2</td>
+                      <td>38</td>
+                      <td>57</td>
+                      <td>95</td>
+                      <td><span class="grade-badge grade-O">O (Outstanding)</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="code-badge">PC</span></td>
+                      <td>Professional Communication</td>
+                      <td>2</td>
+                      <td>39</td>
+                      <td>58</td>
+                      <td>97</td>
+                      <td><span class="grade-badge grade-O">O (Outstanding)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 10: CAMPUS EVENTS
+             ========================================== -->
+        <section id="events" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Campus Events & Fests</h2>
+              <p>Upcoming tech summits, hackathons, and cultural fests happening across campus.</p>
+            </div>
+          </div>
+
+          <div class="events-grid" id="eventsContainer">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 11: SPORTS ACTIVITIES
+             ========================================== -->
+        <section id="sports" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Sports & Campus Fitness</h2>
+              <p>Join intramural teams, book campus courts, and check tournament schedules.</p>
+            </div>
+            <button class="btn btn-primary" id="openJoinSportsModalBtn">
+              <i class="fa-solid fa-dumbbell"></i> Register for Sports
+            </button>
+          </div>
+
+          <!-- Sports Activities Grid -->
+          <div class="sports-grid" id="sportsContainer">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             SECTION 12: QUERIES & HELPDESK
+             ========================================== -->
+        <section id="queries" class="page-section">
+          <div class="section-header-row">
+            <div>
+              <h2>Student Queries & Helpdesk</h2>
+              <p>Submit questions regarding exams, hostel, library, or syllabus directly to campus staff.</p>
+            </div>
+            <button class="btn btn-primary" id="openQueryModalBtn">
+              <i class="fa-solid fa-paper-plane"></i> Ask New Query
+            </button>
+          </div>
+
+          <div class="query-layout">
+            <!-- Submitted Queries List -->
+            <div class="card query-list-card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <i class="fa-solid fa-headset card-icon"></i>
+                  <div>
+                    <h3>Your Submitted Queries</h3>
+                    <p>Track responses and status</p>
+                  </div>
+                </div>
+                <span class="badge" id="queryTotalCount">0 Tickets</span>
+              </div>
+              <div class="card-body">
+                <div class="query-list" id="queryListContainer">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Instant Campus FAQs -->
+            <div class="card faq-card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <i class="fa-solid fa-circle-question card-icon icon-blue"></i>
+                  <div>
+                    <h3>Frequently Asked Questions</h3>
+                    <p>Quick answers to common student questions</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="accordion" id="faqAccordion">
+                  <div class="accordion-item">
+                    <button class="accordion-header">
+                      <span>What is the minimum attendance required for exam eligibility?</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                      <p>A minimum of 75% overall attendance is mandatory. Students falling between 65%-75% require
+                        medical clearance from the Dean's office.</p>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <button class="accordion-header">
+                      <span>How can I access digital library textbook PDFs?</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                      <p>Log in to the Campus WiFi portal, visit <code>library.campus.edu</code>, and use your student
+                        roll number to access over 10,000 indexed textbooks.</p>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <button class="accordion-header">
+                      <span>When is the Sports Complex gym open for students?</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                      <p>The gymnasium and badminton arenas are open daily from 6:00 AM – 9:00 AM in the morning and
+                        5:00 PM – 8:30 PM in the evening.</p>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <button class="accordion-header">
+                      <span>How do I submit medical certificates for missed classes?</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                      <p>Submit physical copies signed by an authorized physician to your department HOD within 7 days
+                        of returning to campus.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Clean App Footer -->
+      <footer class="app-footer">
+        <p>© 2026 <strong>College Campus Smart Dashboard</strong> • Designed for Students with HTML, CSS & Vanilla
+          JavaScript.</p>
+        <div class="footer-links">
+          <span><i class="fa-solid fa-database"></i> LocalStorage Persistent</span>
+          <span>•</span>
+          <span><i class="fa-solid fa-moon"></i> Dark & Light Modes</span>
+          <span>•</span>
+          <span><i class="fa-solid fa-shield-heart"></i> Beginner Friendly</span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALS FOR USER INTERACTION
+       ============================================== -->
+
+  <!-- 1. Add Class Modal -->
+  <div class="modal-backdrop" id="addClassModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-regular fa-calendar-plus"></i> Add Class to Timetable</h3>
+        <button class="modal-close-btn" data-close="addClassModal">&times;</button>
+      </div>
+      <form id="addClassForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="slotDay">Day of Week</label>
+            <select id="slotDay" class="input-field" required>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="slotSubject">Subject Name</label>
+            <input type="text" id="slotSubject" class="input-field" placeholder="e.g. Distributed Computing" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="slotTime">Time Range</label>
+              <input type="text" id="slotTime" class="input-field" placeholder="e.g. 10:00 AM - 11:30 AM" required>
+            </div>
+            <div class="form-group">
+              <label for="slotRoom">Room / Lab</label>
+              <input type="text" id="slotRoom" class="input-field" placeholder="e.g. Lab 4B or Room 302" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="slotProfessor">Faculty / Professor</label>
+            <input type="text" id="slotProfessor" class="input-field" placeholder="e.g. Dr. H. Sharma" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="addClassModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Class Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Add New Assignment Modal -->
+  <div class="modal-backdrop" id="addAssignmentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-list-check"></i> Add New Assignment</h3>
+        <button class="modal-close-btn" data-close="addAssignmentModal">&times;</button>
+      </div>
+      <form id="addAssignmentForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="assignTitle">Assignment Title</label>
+            <input type="text" id="assignTitle" class="input-field"
+              placeholder="e.g. Implement Dijkstra Algorithm in C++" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="assignSubject">Subject</label>
+              <input type="text" id="assignSubject" class="input-field" placeholder="e.g. Data Structures" required>
+            </div>
+            <div class="form-group">
+              <label for="assignPriority">Priority</label>
+              <select id="assignPriority" class="input-field">
+                <option value="High">High 🔴</option>
+                <option value="Medium" selected>Medium 🟡</option>
+                <option value="Low">Low 🟢</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="assignDueDate">Submission Deadline</label>
+            <input type="date" id="assignDueDate" class="input-field" required>
+          </div>
+          <div class="form-group">
+            <label for="assignNotes">Instructions / Notes (Optional)</label>
+            <textarea id="assignNotes" class="input-field" rows="2"
+              placeholder="Mention submission format, portal link, or requirements..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="addAssignmentModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Assignment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Add Class Note Modal -->
+  <div class="modal-backdrop" id="addNoteModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-regular fa-file-lines"></i> Add New Class Note</h3>
+        <button class="modal-close-btn" data-close="addNoteModal">&times;</button>
+      </div>
+      <form id="addNoteForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="noteTitle">Note Title</label>
+            <input type="text" id="noteTitle" class="input-field" placeholder="e.g. CPU Scheduling Algorithms Summary"
+              required>
+          </div>
+          <div class="form-group">
+            <label for="noteSubject">Subject</label>
+            <select id="noteSubject" class="input-field" required>
+              <option value="DM">DM (Discrete Mathematics)</option>
+              <option value="DC">DC (Data Communication)</option>
+              <option value="ESS">ESS (Environmental Studies)</option>
+              <option value="IKS">IKS (Indian Knowledge Systems)</option>
+              <option value="PC">PC (Professional Communication)</option>
+              <option value="FE">FE (Fundamentals of Economics)</option>
+              <option value="EEP">EEP (Electrical & Electronics)</option>
+              <option value="CP" selected>CP (Computer Programming)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="noteContent">Note Content / Key Takeaways</label>
+            <textarea id="noteContent" class="input-field" rows="5"
+              placeholder="Write formulas, algorithms, key definitions..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="addNoteModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Ask Query / Helpdesk Modal -->
+  <div class="modal-backdrop" id="addQueryModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-headset"></i> Submit Student Query</h3>
+        <button class="modal-close-btn" data-close="addQueryModal">&times;</button>
+      </div>
+      <form id="addQueryForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="queryCategory">Category</label>
+            <select id="queryCategory" class="input-field" required>
+              <option value="Academics & Syllabus">Academics & Syllabus</option>
+              <option value="Examinations & Hall Ticket">Examinations & Hall Ticket</option>
+              <option value="Hostel & Mess Facilities">Hostel & Mess Facilities</option>
+              <option value="Library Books & Dues">Library Books & Dues</option>
+              <option value="Sports & Gym Equipment">Sports & Gym Equipment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="querySubject">Subject / Issue Summary</label>
+            <input type="text" id="querySubject" class="input-field"
+              placeholder="e.g. Question regarding Lab 4 Practical Schedule" required>
+          </div>
+          <div class="form-group">
+            <label for="queryMessage">Detailed Description</label>
+            <textarea id="queryMessage" class="input-field" rows="4"
+              placeholder="Explain your doubt or grievance clearly..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close="addQueryModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Ticket</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container for User Feedback -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Custom JavaScript Logic -->
+  <script src="script.js"></script>
+</body>
+
+</html>
